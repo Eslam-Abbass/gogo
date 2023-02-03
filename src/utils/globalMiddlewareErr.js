@@ -1,26 +1,8 @@
-module.exports = (err, req, res, next) => {
+const  GlobalMiddelWareErorr=(err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
-if(err.message=="Unexpected field"){
-  err.message="error maxCount 3"
-}
-  if(process.env.MODE_ENV==='development'){
-    devMode(err,res)
-  }else{
-    prodMode(err,res)
-  }
-};
+     res.status(err.statusCode).json({result:{err:err.message,statusCode:err.statusCode }});
+ 
+ }
+ module.exports= GlobalMiddelWareErorr
 
 
-let devMode=(err,res)=>{
-    res
-    .status(err.statusCode)
-    .json({ status: err.statusCode, msg: err.message, err, stack: err.stack });
-}
-
-
-
-let prodMode=(err,res)=>{
-    res
-    .status(err.statusCode)
-    .json({ status: err.statusCode, msg: err.message, });
-}

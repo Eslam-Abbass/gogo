@@ -1,14 +1,10 @@
-process.on("uncaughtException", (err) => {
-  console.log("uncaughtException", err);
-});
 
 const express = require("express");
 const { dbConnection } = require("./src/database/dbConnection");
 const index = express();
 var cors = require('cors')
 require("dotenv").config({ path: "./config/.env" });
-const port = process.env.PORT || 4000;
-var morgan = require("morgan");
+const port = process.env.PORT;
 const AppError = require("./src/utils/AppError");
 const globalMiddlewareErr = require("./src/utils/globalMiddlewareErr");
 //middleware
@@ -30,7 +26,3 @@ index.use(globalMiddlewareErr);
 
 dbConnection();
 index.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
-process.on("unhandledRejection", (err) => {
-  console.log("unhandledRejection", err);
-});
